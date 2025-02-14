@@ -111,7 +111,7 @@ export default function ProjectsPage() {
       </section>            
 
     <div className="pl-24 mr-[439px] relative">
-    {showForm && <Addproject onClose={()=>setShowForm(false)}/>}
+    {showForm && <Addproject onClose={() => setShowForm(false)} name={""}/>}
       <div className=" flex flex-col px-4 gap-3">
         <h1 className="font-semibold text-2xl mt-6">Project List</h1>
         {projects && projects.map((project:{id: number, name: string}) => (

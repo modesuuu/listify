@@ -1,10 +1,7 @@
 import axios from 'axios'
 import React, { useState } from 'react'
 
-interface newProject{
-    name: string
-}
-const Addproject = ({ onClose }: { onClose: () => void }) => {
+const Addproject = ({ onClose, name }: { onClose: () => void, name: string }) => {
     const [newProject, setNewProject] = useState({
         name: '',
     })

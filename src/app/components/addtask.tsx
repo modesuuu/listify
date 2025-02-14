@@ -84,7 +84,7 @@ const AddTask = ({ onClose, idProject }: { onClose: () => void, idProject: numbe
   // Fetch project data
   
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    const { name, value, type } = e.target;
+    const { name, value } = e.target;
 
     setNewTask((prev) => ({
       ...prev,
@@ -125,7 +125,7 @@ const AddTask = ({ onClose, idProject }: { onClose: () => void, idProject: numbe
     let idproject = newTask.ProjectID
     console.log("id",newTask)
     try {
-      const response = await axios.post("https://listify.rpl1.my.id/api/tasks", {
+      await axios.post("https://listify.rpl1.my.id/api/tasks", {
         ...newTask,
         ProjectID : idproject,
         CategoryID: newTask.CategoryID,
