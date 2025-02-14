@@ -68,7 +68,7 @@ const AddTask = ({ onClose, idProject }: { onClose: () => void, idProject: numbe
   const handleCategoryChange = (e: ChangeEvent<HTMLSelectElement>) => {
     setNewTask((prev) => ({
       ...prev,
-      CategoryID: Number(e.target.value), // Update CategoryID dengan pilihan user
+      CategoryID: Number(e.target.value),
     }));
   };
   // Fetch categories

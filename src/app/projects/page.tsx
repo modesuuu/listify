@@ -1,7 +1,7 @@
 'use client';
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import useSWR, { mutate } from "swr";
+import { mutate } from "swr";
 import Addproject from "../components/addproject";
 import { useParams } from "next/navigation";
 import Side from "../components/side";

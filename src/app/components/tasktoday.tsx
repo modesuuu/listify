@@ -1,10 +1,10 @@
 'use client';
-import React,{ useEffect, useState } from 'react';
-import axios from 'axios';
-import useSWR, { mutate } from "swr";
-import { useRouter } from 'next/router';
+import React,{ useState } from 'react';
+
+import  { mutate } from "swr";
+
 import Notif from '../components/notif';
-import Delete from '../components/delete';
+
 import ConfirmModal from '../components/confirm';
 import api from '../utils/api';
 
@@ -74,7 +74,7 @@ import api from '../utils/api';
         const handleDone = async (taskId: number) => {
             console.log("Task ID:", taskId);
             try {
-                await api.patch(`/api/tasks/${taskId}/done`);
+                await api.patch(`/api/tasks/${taskId}/done`, fetcher);
                 mutate(`/api/tasks/project/${projectID}`);
                 showNotification("Task successfully marked as done! ✅");
             } catch (error) {

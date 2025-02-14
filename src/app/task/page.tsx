@@ -1,5 +1,5 @@
 'use client';
-import React,{ useEffect, useState } from 'react';
+import React,{ useState } from 'react';
 import axios from 'axios';
 import useSWR, { mutate } from "swr";
 import Notif from '../components/notif';
@@ -40,13 +40,11 @@ import ConfirmModal from '../components/confirm';
     };
     
     interface TaskProps {
-        tasks: TaskType[]; 
-        filter?: string;
         projectID: number | null; 
     }
     
 
-    const Task: React.FC<TaskProps> = ({ tasks, filter, projectID }) => {  
+    const Task: React.FC<TaskProps> = ({ projectID }) => {  
 
         const { data: task, error } = useSWR<TaskType[]>(`/api/tasks/project/${projectID}`, fetcher);
         mutate(`/api/tasks/project/${projectID}`);

@@ -1,6 +1,6 @@
 'use client'
 import Widget from './widget'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { DateTime } from "luxon";
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
@@ -33,7 +33,7 @@ export default function Dashboard (){
   const { id } = useParams();
   const projectId = Number(id)
 
-  const { data: task, error } = useSWR<TaskType[]>("/api/tasks",fetcher);
+  const { data: task } = useSWR<TaskType[]>("/api/tasks",fetcher);
   const [isAddTaskOpen, setIsAddTaskOpen] = useState(false);
 
   // today filter
