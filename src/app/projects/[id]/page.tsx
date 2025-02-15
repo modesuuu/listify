@@ -72,7 +72,7 @@ const Project = () => {
         {isAddTaskOpen && <Addtask idProject={projectId} onClose={() => setIsAddTaskOpen(false)} />}
       </section>
       <section className='pl-24 mt-6'>
-        <Task projectID={null} />
+        <Task projectID={projectId} />
       </section>
     </>
   )

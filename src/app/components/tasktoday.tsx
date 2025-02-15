@@ -1,14 +1,12 @@
 'use client';
 import React,{ useState } from 'react';
-
 import  { mutate } from "swr";
-
 import Notif from '../components/notif';
-
 import ConfirmModal from '../components/confirm';
 import api from '../utils/api';
+import axios from 'axios';
 
-    const fetcher = (url: string) => api.get(url).then((res) => res.data);
+    const fetcher = (url: string) => axios.get(url).then((res) => res.data);
 
     enum Priority {
         Low = "low",
@@ -43,12 +41,11 @@ import api from '../utils/api';
     
     interface TaskProps {
         tasks: TaskType[]; 
-        filter?: string;
         projectID: number | null; 
     }
     
 
-    const Tasktoday: React.FC<TaskProps> = ({ tasks, filter, projectID }) => {  
+    const Tasktoday: React.FC<TaskProps> = ({ tasks, projectID }) => {  
 
         const [notification, setNotification] = useState<string | null>(null);
         const [taskToDelete, setTaskToDelete] = useState<number | null>(null);

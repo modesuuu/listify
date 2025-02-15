@@ -1,49 +1,46 @@
 'use client';
 import React,{ useState } from 'react';
-import axios from 'axios';
 import useSWR, { mutate } from "swr";
 import Notif from '../components/notif';
 import api from "../utils/api";
 import ConfirmModal from '../components/confirm';
 
-    const fetcher = (url: string) => api.get(url).then((res) => res.data);
+const fetcher = (url: string) => api.get(url).then((res) => res.data);
 
-    enum Priority {
-        Low = "low",
-        Medium = "medium",
-        High = "high",
-    }
-    interface Task {
-        id: number;
-        Title: string;
-        Priority: Priority;
-        Date: string;
-        Time: string;
-        category:{
-            Name: string;
-            Icon: string;
-        };
-    }
-
-    type TaskType = {
-        id: number;
-        Title: string;
-        Priority: string;
-        Date: string;
-        Time: string;
-        CategoryID: number;
-        ProjectID: number | null;
-        category: {
+enum Priority {
+    Low = "low",
+    Medium = "medium",
+    High = "high",
+}
+interface Task {
+    id: number;
+    Title: string;
+    Priority: Priority;
+    Date: string;
+    Time: string;
+    category:{
         Name: string;
         Icon: string;
-        };
     };
-    
-    interface TaskProps {
-        projectID: number | null; 
-    }
-    
+}
 
+type TaskType = {
+    id: number;
+    Title: string;
+     Priority: string;
+    Date: string;
+    Time: string;
+    CategoryID: number;
+    ProjectID: number | null;
+    category: {
+    Name: string;
+    Icon: string;
+    };};
+    
+interface TaskProps {
+    projectID: number | null; 
+}
+    
     const Task: React.FC<TaskProps> = ({ projectID }) => {  
 
         const { data: task, error } = useSWR<TaskType[]>(`/api/tasks/project/${projectID}`, fetcher);
@@ -57,14 +54,15 @@ import ConfirmModal from '../components/confirm';
         const showNotification = (message: string) => {
             setNotification(message);
             setTimeout(() => setNotification(null), 3000);
-          };
+        };
+   
 
         // delete
         const handleDelete = async () => {
             if (!taskToDelete) return;
             try {
-                await axios.delete(`http://listify.rpl1.my.id/api/tasks/${taskToDelete}`);
-                mutate("http://listify.rpl1.my.id/api/tasks")
+                await api.delete(`/api/tasks/${taskToDelete}`);
+                mutate("/api/tasks")
             } catch (error) {
                 console.error("Failed to delete task:", error);
             }finally {
@@ -73,9 +71,10 @@ import ConfirmModal from '../components/confirm';
         };
         // done
         const handleDone = async (taskId: number) => {
+            console.log("task",taskId)
             try {
-                 await api.patch(`http://listify.rpl1.my.id/api/tasks/${taskId}/done`,{done : true});
-                mutate(`http://listify.rpl1.my.id/api/tasks/project/${projectID}`);
+                 await api.patch(`/api/tasks/${taskId}/done`);
+                mutate(`/api/tasks/project/${projectID}`);
                 showNotification("Task successfully marked as done! ✅");
             } catch (error) {
                 console.error("Failed to mark task as done:", error);

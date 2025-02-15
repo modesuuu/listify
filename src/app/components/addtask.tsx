@@ -1,6 +1,5 @@
 "use client";
 import React, { useState, useEffect, ChangeEvent, FormEvent } from "react";
-import axios from "axios";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { DateTime } from 'luxon';
@@ -125,7 +124,7 @@ const AddTask = ({ onClose, idProject }: { onClose: () => void, idProject: numbe
     let idproject = newTask.ProjectID
     console.log("id",newTask)
     try {
-      await axios.post("https://listify.rpl1.my.id/api/tasks", {
+      await api.post("/api/tasks", {
         ...newTask,
         ProjectID : idproject,
         CategoryID: newTask.CategoryID,

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { DateTime } from "luxon";
 
-export default function widget() {
+export default function Widget() {
   const [dateTime, setDateTime] = useState(DateTime.now());
 
   useEffect(() => {

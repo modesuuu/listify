@@ -1,9 +1,7 @@
 'use client'
 import React from 'react'
 import Image from 'next/image'
-import 'tippy.js/dist/tippy.css';
-import Tippy,{ TippyProps }  from '@tippyjs/react';
-import Link from 'next/link';
+import 'tippy.js/dist/tippy.css';import Link from 'next/link';
 import { tv } from 'tailwind-variants';
 import { usePathname } from 'next/navigation';
 
@@ -27,7 +25,7 @@ export default function Sidebar(){
         <div className='flex flex-col items-center h-full justify-between'>
             {/* logo */}
             <div className="img">
-                <Image alt='Logo' className='rounded-full max-w-12 max-h-12' src="/next.svg" width={100} height={100} />
+                <Image alt='Logo' className=' max-w-10 max-h-10' src="/lg.svg" width={100} height={100} />
             </div>
             {/* navlink */}
             <div className='flex flex-col items-center gap-8 text-2xl text-greey'>

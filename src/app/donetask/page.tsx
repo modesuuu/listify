@@ -4,7 +4,6 @@ import useSWR, {mutate} from "swr";
 import Delete from "../components/delete";
 import ConfirmModal from "../components/confirm";
 import api from "../utils/api";
-import axios from "axios";
 
 const fetcher = (url: string) => api.get(url).then((res) => res.data);
 
@@ -36,7 +35,7 @@ const DoneTasks: React.FC = () => {
   // move again
   const handleMoveToPending = async (taskId: number) => {
     try {
-        await axios.put(`http://listify.rpl1.my.id/api/tasks/${taskId}/pending`);
+        await api.put(`/api/tasks/${taskId}/pending`);
         mutate("/api/tasks/done");
     } catch (error) {
         console.error("Error moving task back to pending:", error);
@@ -109,7 +108,7 @@ const DoneTasks: React.FC = () => {
                     <button onClick={() => handleMoveToPending(task.id)}>
                       <div className='bg-secondblue hover:bg-blue hover:text-secondblue transition-all rounded-lg text-blue items-center flex gap-0.5 py-2 pl-1.5 pr-3'>
                         <i className='bx bx-arrow-back text-2xl'></i>
-                        <h1 className='text-base'>Back</h1>
+                        <h1 className='text-base'>Task again</h1>
                       </div>
                     </button>
                     <button onClick={()=> setTaskToDelete(task.id)} className='hover:bg-error active:hover:bg-error px-2 transition-all hover:text-white active:text-white rounded-lg flex items-center'>

@@ -7,7 +7,6 @@ import { useParams } from "next/navigation";
 import Side from "../components/side";
 import ConfirmModal from "../components/confirm";
 import api from "../utils/api";
-import axios from "axios";
 
 type Project = {
   [x: string]: any;
@@ -45,7 +44,7 @@ export default function ProjectsPage() {
   const handleDelete = async () => {
     if (!taskToDelete) return;
     try {
-      await axios.delete(`http://listify.rpl1.my.id/api/projects/${taskToDelete}`);
+      await api.delete(`/api/projects/${taskToDelete}`);
       mutate("/api/projects")
     } catch (error) {
       console.error("Failed to delete task:", error);
@@ -118,7 +117,7 @@ export default function ProjectsPage() {
           <div key={project.id}>
               <div className='flex bg-secondblue rounded-2xl items-center justify-between gap-16 pl-6'>
               {/* Start */}
-            <Link className="flex bg-secondblue w-1/2 rounded-2xl items-center justify-between gap-16 pl-6" href={`/projects/${project.id}`}>
+            <Link className="flex w-1/2 " href={`/projects/${project.id}`}>
               <div className='flex gap-4 items-center w-1/4'>
                   <div className='flex items-center p-2 rounded-xl bg-blue'><i className='bx bx-list-ul text-2xl'></i></div>
                   <div className='leading-[0.8] flex whitespace-nowrap flex-col'>
@@ -131,7 +130,7 @@ export default function ProjectsPage() {
               <div className='flex items-center bg-white rounded-r-2xl justify-between px-6 w-full py-3'>
                 {/* title */}
                 <div className=' flex flex-col gap-1'>
-                  <h1 className='font-semibold leading-[0.8] text-lg'>Lest see</h1>
+                  <h1 className='font-semibold leading-[0.8] text-lg'>Let's see</h1>
                 </div>
         
                 {/* button */}

@@ -41,6 +41,7 @@ export default function Dashboard (){
   const todayTasks = task 
   ? task.filter((task) => task.Date.trim() === today.trim()) 
   : [];
+  console.log(todayTasks)
 
   const totalTasks = task ? task.length : 0;
   const completedTasks: number = task ? task.filter((task: TaskType) => task.status === "done").length : 0;
