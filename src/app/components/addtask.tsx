@@ -6,6 +6,7 @@ import { DateTime } from 'luxon';
 import { useParams } from "next/navigation";
 import Notif from "./notif";
 import api from "../utils/api";
+import Alert from "./alert";
 
 
 type Task = {
@@ -42,11 +43,16 @@ const AddTask = ({ onClose, idProject }: { onClose: () => void, idProject: numbe
 
   // notif
   const [notification, setNotification] = useState<string | null>(null);
+  const [alert, setAlert] = useState<string | null>(null);
 
   const showNotification = (message: string) => {
     setNotification(message);
     setTimeout(() => setNotification(null), 3000);
   };
+  const showAlert = (message: string) => {
+    setAlert(message);
+    setTimeout(() => setAlert(null), 3000);
+};
 
   useEffect(() => {
     api
@@ -121,7 +127,11 @@ const AddTask = ({ onClose, idProject }: { onClose: () => void, idProject: numbe
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    let idproject = newTask.ProjectID
+    let idproject = newTask.ProjectID;
+    if (!Object.values(newTask).every(value => value)) {
+      showAlert(" All fields must be filled!");
+      return;
+    }
     console.log("id",newTask)
     try {
       await api.post("/api/tasks", {
@@ -153,6 +163,7 @@ const AddTask = ({ onClose, idProject }: { onClose: () => void, idProject: numbe
       
   return (
     <>
+    {alert && <Alert message={alert} onClose={() => setAlert(null)} />}
     {notification && <Notif message={notification} onClose={() => setNotification(null)} />}
     <section className="w-72 z-20 absolute rounded-3xl right-0 shadow-[1px_10px_39px_21px_rgba(0,_0,_0,_0.1)]">
       <div className="bg-white rounded-lg p-4">

@@ -1,7 +1,8 @@
-import axios from 'axios'
-import React, { useState } from 'react'
 
-const Addproject = ({ onClose, name }: { onClose: () => void, name: string }) => {
+import React, { useState } from 'react'
+import api from '../utils/api';
+
+const Addproject = ({ onClose }: { onClose: () => void, name: string }) => {
     const [newProject, setNewProject] = useState({
         name: '',
     })
@@ -14,7 +15,7 @@ const Addproject = ({ onClose, name }: { onClose: () => void, name: string }) =>
       const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault(); 
         try {
-          await axios.post("https://listify.rpl1.my.id/api/projects", newProject);
+          await api.post("/api/projects", newProject);
           alert("Project added successfully!");
           setNewProject({ name: "" }); 
           onClose();

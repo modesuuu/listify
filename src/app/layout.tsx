@@ -24,7 +24,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${poppins.className} bg-[#F0F0F0] h-screen`}
+        className={`${poppins.className} bg-[#F0F0F0]`}
       >
       <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'/>
         <Sidebar />

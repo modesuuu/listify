@@ -21,12 +21,12 @@ const Project = () => {
 
   return (
     <>
-      <section className='pl-24 bg-white'>
+      <section className='lg:pl-24 bg-white'>
         <div className='px-6 py-6 flex flex-col gap-6'>
           <div className='flex items-center justify-between'>
             <h1 className='font-semibold text-base text-darkblue'>Project</h1>
             {/* search */}
-            <div className='relative flex items-center justify-between px-3.5 py-2 bg-[#F3F5F9] rounded-xl'>
+            <div className='relative hidden lg:flex items-center justify-between px-3.5 py-2 bg-[#F3F5F9] rounded-xl'>
               <input type="text" className='focus:outline-none placeholder-blue bg-transparent rounded-lg p-2 ' placeholder='Search Project' />
               <i className='bx bx-search text-2xl text-greey2' ></i>
             </div>
@@ -35,18 +35,18 @@ const Project = () => {
           {/* line */}
           <div className='w-full h-0.5 bg-greey2'></div>
 
-          <div className='flex justify-between items-end'>
+          <div className='flex flex-col items-start lg:gap-0 gap-4 lg:flex-row justify-between'>
             {/* project name */}
             <div>
               <h1 className='font-semibold text-4xl'>{project.name}</h1>
               <span className='font-medium text-sm text-greey2'>There's something to do today!</span>
             </div>
             {/* button */}
-            <div className='relative flex items-center gap-3'>
+            <div className='flex w-full justify-end items-end gap-3'>
               {/* filter */}
-              <button className='text-darkblue active:bg-greey flex items-center py-2 px-3 border gap-3 border-greey2 rounded-xl'>
+              <button className='text-darkblue hidden active:bg-greey items-center py-2 px-3 none lg:flex border gap-3 border-greey2 rounded-xl'>
                 <i className='bx bx-calendar-alt'></i>
-                <select onChange={(e) => setFilter(e.target.value)} className='focus:outline-none cursor-pointer active:bg-greey text-darkblue w-full'>
+                <select onChange={(e) => setFilter(e.target.value)} className='focus:outline-none  cursor-pointer active:bg-greey text-darkblue w-full'>
                   <option value="">All</option>
                   <option value="">Low</option>
                   <option value="">Medium</option>
@@ -71,7 +71,7 @@ const Project = () => {
       <section className=' relative pl-24'>
         {isAddTaskOpen && <Addtask idProject={projectId} onClose={() => setIsAddTaskOpen(false)} />}
       </section>
-      <section className='pl-24 mt-6'>
+      <section className='lg:pl-24 mt-6'>
         <Task projectID={projectId} />
       </section>
     </>

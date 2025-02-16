@@ -21,14 +21,14 @@ export default function Sidebar(){
 
   return (
     <>
-    <section className='left-0 z-10 h-screen px-6 w-fit py-6 bg-white fixed'>
-        <div className='flex flex-col items-center h-full justify-between'>
+    <section className='lg:left-0 bottom-0 z-10 lg:h-screen px-6 w-full lg:w-fit py-6 bg-white fixed'>
+        <div className='flex lg:flex-col items-center h-full justify-between'>
             {/* logo */}
             <div className="img">
-                <Image alt='Logo' className=' max-w-10 max-h-10' src="/lg.svg" width={100} height={100} />
+                <Image alt='Logo' className=' lg:max-w-10 max-h-6 max-w-6 lg:max-h-10 ' src="/lg.svg" width={100} height={100} />
             </div>
             {/* navlink */}
-            <div className='flex flex-col items-center gap-8 text-2xl text-greey'>
+            <div className='flex lg:flex-col items-center gap-8 text-2xl text-greey'>
               <Link href={'/'} className={linkStyles({ active: pathname === '/' })}>
                 <i className='bx bxs-dashboard z-10'></i>
               </Link>

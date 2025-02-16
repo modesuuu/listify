@@ -10,6 +10,7 @@ import Addtask from './addtask';
 import Tasktoday from './tasktoday';
 import ProgressBar from './progresbar';
 import api from '../utils/api';
+import Notif from './notif';
 
 type TaskType = {
   status: string;
@@ -47,12 +48,12 @@ export default function Dashboard (){
   const completedTasks: number = task ? task.filter((task: TaskType) => task.status === "done").length : 0;
   return (
     <>
-    <section className='pl-24 bg-white mr-[439px]'>
+    <section className='lg:pl-24 bg-white lg:mr-[439px]'>
       <div className='px-6 py-6 flex flex-col gap-6'>
         <div className='flex items-center justify-between'>
           <h1 className='font-semibold text-base text-darkblue'>Project</h1>
           {/* search */}
-          <div className='relative flex items-center justify-between px-3.5 py-2 bg-[#F3F5F9] rounded-xl'>
+          <div className='relative lg:flex hidden items-center justify-between px-3.5 py-2 bg-[#F3F5F9] rounded-xl'>
             <input type="text" className='focus:outline-none placeholder-blue bg-transparent rounded-lg p-2 ' placeholder='Search Project' />
             <i className='bx bx-search text-2xl text-greey2' ></i>
           </div>
@@ -66,7 +67,7 @@ export default function Dashboard (){
             <span className='font-medium text-sm text-greey2'>There's something to do today!</span>
           </div>
           {/* button */}
-          <div className='relative flex items-center gap-3'>
+          <div className='relative lg:flex hidden items-center gap-3'>
             {/* filter */}
             <button className='text-darkblue active:bg-greey flex items-center py-2 px-3 border gap-3 border-greey2 rounded-xl'>
               <i className='bx bx-calendar-alt'></i>
@@ -85,7 +86,7 @@ export default function Dashboard (){
       </div>
     </section>
 
-    <section className='mr-[439px] pl-24'>
+    <section className='lg:mr-[439px] lg:pl-24'>
       <div className='px-6 relative mt-6 flex items-center gap-6'>
         <div className=' px-6 py-3 w-64 bg-[#5151F9] rounded-3xl flex flex-col items-center '>
           <Image alt='' className=' w- ' src="/rocket1.png" width={120} height={120} />
@@ -112,7 +113,7 @@ export default function Dashboard (){
       </div>
     </section>
 
-    <section className='mr-[439px] relative pl-24 mt-6 '>
+    <section className='lg:mr-[439px] relative lg:pl-24 mt-6 '>
       <div className='flex items-center justify-between px-6 mb-2'>
         <h1 className='text-2xl font-semibold'>Task</h1>
         <Link href={"/projects"}><span className='text-sm'>See all</span></Link>
