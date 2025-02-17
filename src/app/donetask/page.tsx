@@ -77,10 +77,16 @@ const DoneTasks: React.FC = () => {
               <div className='flex gap-4 items-center w-auto'>
                   <div className='flex items-center p-2 rounded-xl bg-blue'><i className={`${task.category.Icon} text-white text-2xl`}></i></div>
                   <div className='leading-[0.8] lg:flex whitespace-nowrap hidden lg:flex-col'>
-                      <h1 className='font-semibold text-base '>Start from</h1>
+                      <h1 className='font-semibold text-base '>Completed at</h1>
                       <div className='text-sm flex gap-1 items-center text-greey2'>
                           <i className='bx bx-time-five text-base' ></i>
-                          <span>{new Date(`1970-01-01T${task.Time}`).toLocaleTimeString(undefined, { hour: "2-digit", minute: "2-digit", hour12: true })}</span>
+                          <span>{task.CompletedAt
+    ? new Date(task.CompletedAt).toLocaleTimeString(undefined, {
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: true
+      })
+    : "Not Completed"}</span>
                       </div>
                   </div>
               </div>

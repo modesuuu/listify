@@ -5,6 +5,7 @@ import Notif from '../components/notif';
 import api from "../utils/api";
 import ConfirmModal from '../components/confirm';
 import { DateTime } from 'luxon';
+import Alert from '../components/alert';
 
 const fetcher = (url: string) => api.get(url).then((res) => res.data);
 
@@ -39,16 +40,17 @@ type TaskType = {
     Date: string;
     Time: string;
     CategoryID: number;
-    ProjectID: number | null;
+    ProjectID: number;
     category: {
     Name: string;
     Icon: string;
     };};
     
-interface TaskProps {
-    projectID: number | null; 
-}
     
+    interface TaskProps {
+    projectID: number; 
+}
+   
     const Task: React.FC<TaskProps> = ({ projectID }) => {  
 
         const { data: task, error } = useSWR<TaskType[]>(`/api/tasks/project/${projectID}`, fetcher);
@@ -59,7 +61,12 @@ interface TaskProps {
         const [taskToDelete, setTaskToDelete] = useState<number | null>(null);
         const [editTask, setEditTask] = useState<Task | null>(null);
         const [isModalOpen, setIsModalOpen] = useState<number | null>(null);
-        
+        const [alert, setAlert] = useState<string | null>(null);
+
+        const showAlert = (message: string) => {
+            setAlert(message);
+            setTimeout(() => setAlert(null), 3000);
+        };
         
         if (error) return <p>Error fetching tasks.</p>;
         if (!task) return <p>Loading...</p>;
@@ -74,7 +81,7 @@ interface TaskProps {
             if (!taskToDelete) return;
             try {
                 await api.delete(`/api/tasks/${taskToDelete}`);
-                mutate("/api/tasks")
+                mutate(`/api/tasks/project/${projectID}`)
             } catch (error) {
                 console.error("Failed to delete task:", error);
             }finally {
@@ -85,7 +92,8 @@ interface TaskProps {
         const handleDone = async (taskId: number) => {
             console.log("task",taskId)
             try {
-                 await api.patch(`/api/tasks/${taskId}/done`);
+                const response = await api.patch(`/api/tasks/${taskId}/done`);
+                console.log("Updated Task:", response.data.task);
                  showNotification("Task successfully marked as done! ✅");
                 } catch (error) {
                     console.error("Failed to mark task as done:", error);
@@ -95,17 +103,23 @@ interface TaskProps {
         
         // update
         const updateTask = async (id: number, updatedTask: Task) => {
-            try {
-              await api.put(`/api/tasks/${id}`, updatedTask);
-              mutate(`/api/tasks/project/${projectID}`);
-              setEditTask(null)
-              showNotification("Task updated successfully! ✅");
-            } catch (error: any) {
-                console.error("Error updating task:", error.response?.data);
+            const fields = [updatedTask.Title.trim(), updatedTask.Date, updatedTask.Time, updatedTask.CategoryID];
+            if(fields.every(field => field)){
+                try {
+                  await api.put(`/api/tasks/${id}`, updatedTask);
+                  setEditTask(null)
+                  showNotification("Task updated successfully! ✅");
+                } catch (error: any) {
+                    console.error("Error updating task:", error.response?.data);
+                }
+            }else{
+                showAlert("All fields must be filled!")
             }
-          };
+        };
+        const isFormValid = [editTask?.Title.trim(), editTask?.Date, editTask?.Time, editTask?.CategoryID].every(field => field);
     return (
         <>
+        {alert && <Alert message={alert} onClose={() => setAlert(null)} />}
         {taskToDelete && (
         <ConfirmModal
           message="Are you sure you want to delete this task?"
@@ -171,10 +185,10 @@ interface TaskProps {
                 onChange={(e) => setEditTask({ ...editTask, Time: e.target.value })}
                 className="w-full p-2 border rounded-md mb-3"
             />
-
+            
             <div className="flex justify-end gap-3">
                 <button onClick={() => setEditTask(null)} className="btn btn-outline btn-error">Cancel</button>
-                <button onClick={() => updateTask(editTask.id, editTask)} className="btn bg-blue text-white hover:text-black rounded-md hover:bg-secondblue">Save</button>
+                <button disabled={!isFormValid} onClick={() => updateTask(editTask.id, editTask)} className="btn bg-blue text-white hover:text-black rounded-md hover:bg-secondblue">Save</button>
             </div>
             </div>
         </div>

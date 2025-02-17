@@ -6,7 +6,7 @@ const Alert = ({message, onClose}: {message: string, onClose: () => void}) => {
           return () => clearTimeout(timer);
         });
   return (
-    <div className="alert alert-warning z-20 flex items-center gap-4" role="alert">
+    <div className="alert absolute alert-warning z-20 flex items-center gap-4" role="alert">
       <span className="icon-[tabler--alert-triangle] size-6"></span>
       <p><span className="text-lg font-semibold">Warning alert:</span>{message}</p>
     </div>

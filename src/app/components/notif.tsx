@@ -13,7 +13,7 @@ const Notif: React.FC<notifProps> = ({ message, onClose }) => {
       });
   return (
     <div className="">
-        <div className="alert z-20 absolute alert-success flex items-center gap-4" role="alert">
+        <div className="alert z-20 absolute top-0 alert-success flex items-center gap-4" role="alert">
             <span className="icon-[tabler--circle-check] size-6"></span>
             <p><span className="text-lg font-semibold">Success</span> {message}</p>
         </div>

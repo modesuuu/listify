@@ -101,9 +101,10 @@ const AddTask = ({ onClose, idProject }: { onClose: () => void, idProject: numbe
   const handleDateChange = (date: Date | null) => {
     if (date) {
       setSelectedDate(date);
+      const localDate = DateTime.fromJSDate(date).toFormat("yyyy-MM-dd");
       setNewTask((prev) => ({
         ...prev,
-        Date: date.toISOString().split("T")[0],
+        Date: localDate ,
       }));
     }
   };

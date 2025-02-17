@@ -7,6 +7,7 @@ import { useParams } from "next/navigation";
 import Side from "../components/side";
 import ConfirmModal from "../components/confirm";
 import api from "../utils/api";
+import Alert from "../components/alert";
 
 type Project = {
   [x: string]: any;
@@ -33,6 +34,12 @@ export default function ProjectsPage() {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const { id } = useParams(); 
   const projectId = Number(id); 
+  const [alert, setAlert] = useState<string | null>(null);
+
+  const showAlert = (message: string) => {
+    setAlert(message);
+    setTimeout(() => setAlert(null), 3000);
+};
 
   useEffect(() => {
     api
@@ -60,6 +67,10 @@ export default function ProjectsPage() {
       console.error("Invalid project ID");
       return;
     }
+    if (!name.trim()) {
+      showAlert(" Project name cannot be empty!");
+      return;
+    }
     console.log("Updating project:", id, name);
     try {
       await api.put(`/api/projects/${id}`, { name });
@@ -74,6 +85,7 @@ export default function ProjectsPage() {
   return (
     <>
     <Side/>
+    {alert && <Alert message={alert} onClose={() => setAlert(null)} />}
     {taskToDelete && (
         <ConfirmModal
           message="Are you sure you want to delete this project?"
