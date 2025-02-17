@@ -16,7 +16,7 @@ type Task = {
   Date: string;
   Time: string;
   CategoryID: string;
-  ProjectID: number | null;
+  ProjectID: number;
 };
 
 type Project = {
@@ -40,7 +40,6 @@ const AddTask = ({ onClose, idProject }: { onClose: () => void, idProject: numbe
     ProjectID: idProject,
   });
   const [selectedDate, setSelectedDate] = useState<Date | null>(newTask.Date ? new Date(newTask.Date) : null);
-
   // notif
   const [notification, setNotification] = useState<string | null>(null);
   const [alert, setAlert] = useState<string | null>(null);
@@ -151,7 +150,8 @@ const AddTask = ({ onClose, idProject }: { onClose: () => void, idProject: numbe
         ProjectID: idproject ,
       });
 
-
+      onClose();
+      
       // Refresh project tasks
       if (selectedProject) {
         const projectRes = await api.get(`/api/projects/${selectedProject}`);
