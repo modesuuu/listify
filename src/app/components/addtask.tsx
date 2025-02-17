@@ -187,9 +187,12 @@ const AddTask = ({ onClose, idProject }: { onClose: () => void, idProject: numbe
              <div className="relative">
              <select onChange={handleProjectSelect} className="select select-floating max-w-sm" aria-label="Select floating label" id="selectFloating">   
               {projects.map((prj) => (
+                <>
+                <option value="categories" disabled selected hidden>categori</option>
                 <option key={prj.id} value={prj.id}>
                   {prj.name}
                 </option>
+                </>
               ))}  
               </select>
              <label className="select-floating-label" htmlFor="selectFloating">Project</label>
